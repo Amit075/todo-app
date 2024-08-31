@@ -106,6 +106,8 @@
                 });
             });
 
+
+            //showallbutton ajax functionality
             $('#showAllBtn').on('click', function() {
                 location.reload(); // Show all tasks
             });

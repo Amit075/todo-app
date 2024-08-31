@@ -24,4 +24,5 @@ Route::controller(TaskController::class)->group(function(){
     Route::post('/tasks',"store");
     Route::patch('/tasks/{task}',"update");
     Route::delete('/tasks/{task}',"destroy");
+    Route::get('/tasks/search',"search");
 });

@@ -107,10 +107,57 @@
             });
 
             $('#showAllBtn').on('click', function() {
-                $('.toggle-complete').each(function() {
-                    $(this).closest('tr').show();
-                });
+                location.reload(); // Show all tasks
             });
+
+
+            ///asdsadsdadaddas
+            
+                // Handle Enter key press for search
+                $('#task').on('keypress', function(e) {
+                    if (e.keyCode == 13) { // Enter key
+                        e.preventDefault();
+                        let query = $(this).val().trim();
+                        searchTasks(query);
+                    }
+                });
+
+    // Function to perform a search
+                    function searchTasks(query) {
+                        console.log('Searching for:', query); // Debugging line
+                        $.ajax({
+                            url: '/tasks/search',
+                            method: 'GET',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                query: query
+                            },
+                            success: function(response) {
+                                console.log('Search response:', response); // Debugging line
+                                $('#taskList').html('');
+                                response.tasks.forEach(task => {
+                                    $('#taskList').append(`
+                                        <tr data-id="${task.id}">
+                                            <td>${task.id}</td>
+                                            <td>${task.task}</td>
+                                            <td>${task.is_completed ? 'Done' : 'Pending'}</td>
+                                            <td>
+                                                ${task.is_completed ? '' : '<input type="checkbox" class="task-checkbox">'}
+                                                <button class="btn btn-danger delete-task">Delete</button>
+                                            </td>
+                                        </tr>
+                                    `);
+                                });
+                            },
+                            error: function(xhr) {
+                                console.log('Search error:', xhr.responseText); // Debugging line
+                                alert('Error searching tasks.');
+                            }
+                        });
+                    }
+                
+
+            //sadsadsadasd
 
         });
 </script>

@@ -37,4 +37,18 @@ class TaskController extends Controller
         $task->delete();
         return response()->json(['success' => 'Task deleted successfully']);
     }
+
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'query' => 'required|string|max:255',
+        ]);
+        $query = $request->input('query');
+        $tasks = Task::where('task', 'like', '%' . $query . '%')->get();
+        return response()->json([
+            'tasks' => $tasks
+        ]);
+    }
+
 }

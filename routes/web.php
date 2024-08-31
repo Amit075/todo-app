@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
-Route::controller(TaskController::class)->prefix('tasks')->group(function(){
-    Route::get('index',"index")->name('todoindex');
+Route::controller(TaskController::class)->group(function(){
+    Route::get('/',"index")->name('todoindex');
+    Route::post('/tasks',"store");
 });

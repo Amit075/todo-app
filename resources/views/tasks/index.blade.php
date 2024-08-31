@@ -87,6 +87,31 @@
                     }
                 });
             });
+
+            $('.delete-task').on('click', function() {
+                if(!confirm('Are you sure to delete this task?')) return;
+
+                let row = $(this).closest('tr');
+                let taskId = row.data('id');
+
+                $.ajax({
+                    url: `/tasks/${taskId}`,
+                    method: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            });
+
+            $('#showAllBtn').on('click', function() {
+                $('.toggle-complete').each(function() {
+                    $(this).closest('tr').show();
+                });
+            });
+
         });
 </script>
 </body>

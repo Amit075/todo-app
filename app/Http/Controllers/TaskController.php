@@ -24,4 +24,11 @@ class TaskController extends Controller
 
         return response()->json(['success' => 'Task added successfully']);
     }
+
+    public function update(Task $task)
+    {
+        $task->update(['is_completed' => true]);
+
+        return response()->json(['success' => 'Task updated successfully']);
+    }
 }

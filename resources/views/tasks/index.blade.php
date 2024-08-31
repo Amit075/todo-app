@@ -68,6 +68,25 @@
                     }
                 });
             });
+
+
+            $('.task-checkbox').on('change', function() {
+                let row = $(this).closest('tr');
+                let taskId = row.data('id');
+                let isChecked = $(this).is(':checked');
+                    
+                $.ajax({
+                    url: `/tasks/${taskId}`,
+                    method: 'PATCH',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        is_completed: isChecked
+                    },
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            });
         });
 </script>
 </body>

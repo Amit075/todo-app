@@ -22,4 +22,5 @@ use Illuminate\Support\Facades\Route;
 Route::controller(TaskController::class)->group(function(){
     Route::get('/',"index")->name('todoindex');
     Route::post('/tasks',"store");
+    Route::patch('/tasks/{task}',"update");
 });
